@@ -4,8 +4,8 @@
  * For details, visit Wiki:
  * https://github.com/gitpitch/gitpitch/wiki/Slideshow-Custom-CSS
  */
-.slide-background present {
-opacity:0.5;
+.backgrounds{
+    opacity: 0.5;
 }
 
 body {
