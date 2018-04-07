@@ -11,7 +11,9 @@
 @fa[arrows gp-tip](Press F to go Fullscreen)
 
 @fa[microphone gp-tip](Press S for Speaker Notes)
-
+Note:
+Remember to explain why it's for everyone: no sign-up, nothing to install.
+Just MD. Then git-commit.
 ---
 
 ## Template Features
