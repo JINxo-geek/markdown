@@ -6,13 +6,15 @@
 
   哈希算法会将一串字符串按照固定的算法生成一串固定长度的16进制字符串
 
-  Note:![100](http://oocfz31zv.bkt.clouddn.com/100.jpg)
+Note:![100](http://oocfz31zv.bkt.clouddn.com/100.jpg)
 
   ![101](http://oocfz31zv.bkt.clouddn.com/101.jpg)
 
   每一个区块都包含一笔以上的交易。
 
-  ---
+  ​
+
+---
 
   ​
 
@@ -45,8 +47,8 @@ nonce:Nonce是或Number once的缩写，在密码学中Nonce是一个只被使�
 
 为了确保 nonce 在特定上下文中仅仅被使用一次，可以使用以下策略生成 nonce：
 
-- nonce 可以是一个时间相关变量
-- nonce 可以是一个通过足够随机算法生成的足够长的 bits
+- nonce 可以是一个时间相关变量 |
+- nonce 可以是一个通过足够随机算法生成的足够长的 bits |
 
 当data改变后hash值也跟着改变，但是在只有hash值开头是4个0才是合法的，挖矿的过程实际上就是猜nonce的值，当猜中了Hash的值就会变成0000开头，然后开始广播给所有的节点，节点开始验证合法性，通过后将这个区块添加到区块链的主链之中。
 
@@ -58,7 +60,7 @@ nonce:Nonce是或Number once的缩写，在密码学中Nonce是一个只被使�
 
 ---
 
-
+Note:
 
 ![107](http://oocfz31zv.bkt.clouddn.com/107.jpg)
 
@@ -102,6 +104,10 @@ nonce:Nonce是或Number once的缩写，在密码学中Nonce是一个只被使�
 - 共同维护整份资料库意味着多数人验证过后的区块才是合法有效的区块 |
 
 - 意味超过50%的节点验证通过的区块才是合法有效的区块 |
+
+  ---
+
+  ​
 
 - 每个节点必须存储所有的区块 |
 
