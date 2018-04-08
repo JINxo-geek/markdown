@@ -1,122 +1,188 @@
-# Black Binary
+# Block chain
 
-### A GitPitch Presentation Template
 
----
 
-## Tips!
+- https://anders.com/blockchain/hash.html 
 
-<br>
+  哈希算法会将一串字符串按照固定的算法生成一串固定长度的16进制字符串
 
-@fa[arrows gp-tip](Press F to go Fullscreen)
+  ![100](http://oocfz31zv.bkt.clouddn.com/100.jpg)
 
-@fa[microphone gp-tip](Press S for Speaker Notes)
-Note:
-Remember to explain why it's for everyone: no sign-up, nothing to install.
-Just MD. Then git-commit.
----
+  ![101](http://oocfz31zv.bkt.clouddn.com/101.jpg)
 
-## Template Features
+  每一个区块都包含一笔以上的交易。
 
-- Code Presenting |
-- Repo Source, Static Blocks, GIST |
-- Custom CSS Styling |
-- Slideshow Background Image |
-- Slide-specific Background Images |
-- Custom Logo, TOC, and Footnotes |
+  ---
 
----?code=sample/go/server.go&lang=golang&title=Golang File
+  ​
 
-@[1,3-6](Present code found within any repo source file.)
-@[8-18](Without ever leaving your slideshow.)
-@[19-28](Using GitPitch code-presenting with (optional) annotations.)
 
----
+![O6C6[NL{P1SHV$XX}]V$AFL](http://oocfz31zv.bkt.clouddn.com/O6C6%5BNL%7BP1SHV%24XX%7D%5DV%24AFL.png)
 
-@title[JavaScript Block]
+溯源性：每个区块都会包含上个区块的hash值，可以根据这个Hash值找到上个区块，有点像数据结构中的链表。
 
-<p><span class="slide-title">JavaScript Block</span></p>
+所有被连接在一起的区块被称为区块链（Block-Chain）。
 
-```javascript
-// Include http module.
-var http = require("http");
+Note:![103](http://oocfz31zv.bkt.clouddn.com/103.jpg)
 
-// Create the server. Function passed as parameter
-// is called on every request made.
-http.createServer(function (request, response) {
-  // Attach listener on end event.  This event is
-  // called when client sent, awaiting response.
-  request.on("end", function () {
-    // Write headers to the response.
-    // HTTP 200 status, Content-Type text/plain.
-    response.writeHead(200, {
-      'Content-Type': 'text/plain'
-    });
-    // Send data and end response.
-    response.end('Hello HTTP!');
-  });
+![102](http://oocfz31zv.bkt.clouddn.com/102.jpg)
 
-// Listen on the 8080 port.
-}).listen(8080);
-```
+- `Index (Block #):` 第几个区块? (创世区块链的索引为0)
+- `Hash:` 当前区块的hash值
+- `Previous Hash:` 上一个区块的hash值
+- `Timestamp:`当前区块创建时的时间戳
+- `Data:` 存储在当前区块上的交易信息
+- `Nonce:` 在找到有效区块之前，我们经历的迭代次数（表示工作量证明演算法进行的次数
+- ）
 
-@[1,2](You can present code inlined within your slide markdown too.)
-@[9-17](Displayed using code-syntax highlighting just like your IDE.)
-@[19-20](Again, all of this without ever leaving your slideshow.)
 
----?gist=onetapbeyond/494e0fecaf0d6a2aa2acadfb8eb9d6e8&lang=scala&title=Scala GIST
 
-@[23](You can even present code found within any GitHub GIST.)
-@[41-53](GIST source code is beautifully rendered on any slide.)
-@[57-62](And code-presenting works seamlessly for GIST too, both online and offline.)
+
+
+nonce:Nonce是或Number once的缩写，在密码学中Nonce是一个只被使用一次的任意或非重复的随机数值。nonce 避免重放攻击（Replay attack）
+
+为了确保 nonce 在特定上下文中仅仅被使用一次，可以使用以下策略生成 nonce：
+
+- nonce 可以是一个时间相关变量
+- nonce 可以是一个通过足够随机算法生成的足够长的 bits
+
+当data改变后hash值也跟着改变，但是在只有hash值开头是4个0才是合法的，挖矿的过程实际上就是猜nonce的值，当猜中了Hash的值就会变成0000开头，然后开始广播给所有的节点，节点开始验证合法性，通过后将这个区块添加到区块链的主链之中。
+
+![104](http://oocfz31zv.bkt.clouddn.com/104.jpg)
+
+当修改了某条数据之后，之后的每一条数据都行要重新挖矿，如果链很长的话，修改成本非常的高，
+
+任何一笔资料被篡改的几率微乎其微。
 
 ---
 
-## Template Help
 
-- [Code Presenting](https://github.com/gitpitch/gitpitch/wiki/Code-Presenting)
-  + [Repo Source](https://github.com/gitpitch/gitpitch/wiki/Code-Delimiter-Slides), [Static Blocks](https://github.com/gitpitch/gitpitch/wiki/Code-Slides), [GIST](https://github.com/gitpitch/gitpitch/wiki/GIST-Slides) 
-- [Custom CSS Styling](https://github.com/gitpitch/gitpitch/wiki/Slideshow-Custom-CSS)
-- [Slideshow Background Image](https://github.com/gitpitch/gitpitch/wiki/Background-Setting)
-- [Slide-specific Background Images](https://github.com/gitpitch/gitpitch/wiki/Image-Slides#background)
-- [Custom Logo](https://github.com/gitpitch/gitpitch/wiki/Logo-Setting) [TOC](https://github.com/gitpitch/gitpitch/wiki/Table-of-Contents) [Footnotes](https://github.com/gitpitch/gitpitch/wiki/Footnote-Setting)
 
----
+![107](http://oocfz31zv.bkt.clouddn.com/107.jpg)
 
-## Go GitPitch Pro!
 
-<br>
-<div class="left">
-    <i class="fa fa-user-secret fa-5x" aria-hidden="true"> </i><br>
-    <a href="https://gitpitch.com/pro-features" class="pro-link">
-    More details here.</a>
-</div>
-<div class="right">
-    <ul>
-        <li>Private Repos</li>
-        <li>Private URLs</li>
-        <li>Password-Protection</li>
-        <li>Image Opacity</li>
-        <li>SVG Image Support</li>
-    </ul>
-</div>
+
+每个节点Peer可以包含多个区块(并且区块内容相同)
+
+当某个节点的数据篡改后，即使挖矿后，hash值变成0000开头，但是其他节点的hash值没变，这个被修改过的节点就会被抛弃。
 
 ---
 
-### Questions?
 
-<br>
 
-@fa[twitter gp-contact](@gitpitch)
+- 是一种分布式数据库
+- 最初是广泛使用在Bitcoin
+- 维护一份连续不断的交易记录档
+- 每一笔资料被称为一个区块（Block）
+- 每一个区块可以包含一笔以上的交易
+- 每个区块都会与另一个区块产生连接
+- 每个区块都会包含上个区块的hash值
+- 所有被连接在一起的区块被称为链（Chain）
+- 区块链就是由多个区块组成的链
 
-@fa[github gp-contact](gitpitch)
 
-@fa[medium gp-contact](@gitpitch)
+#区块链如何工作？
 
----?image=assets/image/gitpitch-audience.jpg&opacity=100
+- 产生区块链的过程会经过复杂的密码学运算，复杂的密码学运算可以杜绝记录篡改和修订，
 
-@title[Download this Template!]
+- 每个区块在成功产生之后是无法修改的。产生区块的过程you称为 挖矿 (Mining)，
 
-### Get your presentation started!
-### [Download this template @fa[external-link gp-download]](https://gitpitch.com/template/download/black-binary)
+- 负责产生区块的人又称为矿工(Miner),负责产生区块的机器有被称为挖矿机。
+
+- 每一笔资粮都可以通过连接找出所有可靠的历史资料
+
+- 由于分布式数据库，所以具有去中心化的特性。
+
+- 去中心化意味着资料会分布到多个节点上。
+
+- 所有节点共同维护整个分布式数据库
+
+- 共同维护整份资料库意味着没人可以说自己的区块才是合法有效的区块
+
+- 共同维护整份资料库意味着多数人验证过后的区块才是合法有效的区块
+
+- 意味超过50%的节点验证通过的区块才是合法有效的区块
+
+- 每个节点必须存储所有的区块
+
+- 每一个节点都可以协助验证区块的有效性
+
+- 任何一笔资料被篡改都将破坏区块的完整性
+
+- 任何一笔资料被篡改的几率微乎其微
+
+- 区块链的运作原理跟Git分布式版本控制系统有着异曲同工之妙
+
+- 区块链的包含两种物件类型 交易和区块
+
+  ---
+
+  ​
+
+## 情景解说
+
+- 数字货币
+
+  - 交易物件 就是转账过程的完整内容
+
+    ![105](http://oocfz31zv.bkt.clouddn.com/105.jpg)
+
+    ​
+
+  - 区块物件 包含一系列交易的集合
+
+    ![106](http://oocfz31zv.bkt.clouddn.com/106.jpg)
+
+    ​
+
+  - 区块之间连接起来就是一本账簿
+
+  - 区块链基本原理就是让所有人共同维护一个账簿
+
+  - 这份共同维护的账簿必需由大伙共同认证
+
+  ---
+
+  ​
+
+  ​
+
+  ![98](http://oocfz31zv.bkt.clouddn.com/98.jpg)
+
+  以Bitcoin转账交易为例
+
+  - Bitcoin的生态系统中，有着许多运行地电脑<mark>节点</mark>，每个节点就是一台挖坑机，它们专门用来帮大家完成交易，建立新的区块并加入账簿，当A想要转账给B时，要先由B建立一个地址（匿名），把地址交给A之后，再由A建立一个交易物件并通过广播的形式发布到Bitcoin的网络系统中。注意：每个人都可以申请一个地址（一串乱码），该地址可用来付账收款，该地址在变更之后就无法使用（一次性），变更之后就只能用新的地址来交易
+  - BItcoin系统会自动挑选不同的节点来验证这笔交易的可靠性，通常一个交易会获得多个不同的节点来进行验证，被选中的节点至少会验证一个以上的区块（即本次交易所需的所有区块）来运算出本次交易产生的合法区块。
+  - 基本上每个节点都能产生区块，并且会相互验证彼此之间的有效性。当超过50%的节点说这个节点是合法有效的，这个区块就会被写入账簿，最后再将这些区块通过广播的方式发布回Bitcoin系统中，通过一次交易需要花费十多分钟才能确认，当Bitcoin系统验证交易确实完成。A跟B就可以看到这一笔（合法有效的交易），并且该交易被记录在一个特定的区块之中，并且可以查看自己账户中有中有多少钱。
+  - 事实上，并不是A和B拥有这个账簿，而是整个Bitcoin系统中只有一份账簿（所有人的交易记录都在这里），并且分散存储在不同的节点中，每个节点都拥有完整的账簿，因此这本账簿一份完全分布式，去中新化，公开透明，无法篡改，又能匿名交易的一本账簿。
+
+  ## 区块链特点与应用
+
+  - 完全开源的技术
+
+  - 去中心化分布式架构
+
+  - 所有节点都以匿名方式存在，共同验证整份账簿（共同验证交易的节点会通过共识算法决定这是否为合法交易）
+
+  - 任何人 想篡改历史交易记录都将付出极高的代价（你必须让网络上所有包含你这笔交易的区块同时修改方位有效）
+
+  - 完全自动化的冲突处理方式（比如：同一笔交易在不同节点同时完成的情况）
+
+    ### 应用领域
+
+    - 数字货币
+    - 能将数据去中心化，透明化，不可篡改仅能新增区块，永久保存的应用都适用于区块链技术
+      - 数字资产管理
+      - 供应链透明化
+      - 生产履历，产销履历
+      - 智能合约，契约执行
+      - 交易流程透明化
+      - 电子函证
+
+  ​
+
+  ​
+
+
+
 
