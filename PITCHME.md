@@ -12,11 +12,9 @@ Note:![100](http://oocfz31zv.bkt.clouddn.com/100.jpg)
 
   每一个区块都包含一笔以上的交易。
 
-  ​
 
 ---
 
-  ​
 
 
 ![O6C6[NL{P1SHV$XX}]V$AFL](http://oocfz31zv.bkt.clouddn.com/O6C6%5BNL%7BP1SHV%24XX%7D%5DV%24AFL.png)
@@ -38,29 +36,21 @@ Note:![103](http://oocfz31zv.bkt.clouddn.com/103.jpg)
 - ）
 
 ---
-
-##篡改？
-
+### 篡改？
 Note:
-
 nonce:Nonce是或Number once的缩写，在密码学中Nonce是一个只被使用一次的任意或非重复的随机数值。nonce 避免重放攻击（Replay attack）
 
 为了确保 nonce 在特定上下文中仅仅被使用一次，可以使用以下策略生成 nonce：
-
-- nonce 可以是一个时间相关变量 |
-- nonce 可以是一个通过足够随机算法生成的足够长的 bits |
-
+- nonce 可以是一个时间相关变量
+- nonce 可以是一个通过足够随机算法生成的足够长的 bits
 当data改变后hash值也跟着改变，但是在只有hash值开头是4个0才是合法的，挖矿的过程实际上就是猜nonce的值，当猜中了Hash的值就会变成0000开头，然后开始广播给所有的节点，节点开始验证合法性，通过后将这个区块添加到区块链的主链之中。
-
 ![104](http://oocfz31zv.bkt.clouddn.com/104.jpg)
 
-当修改了某条数据之后，之后的每一条数据都行要重新挖矿，如果链很长的话，修改成本非常的高，
-
-任何一笔资料被篡改的几率微乎其微。
+当修改了某条数据之后，之后的每一条数据都行要重新挖矿，如果链很长的话，修改成本非常的高，任何一笔资料被篡改的几率微乎其微。
 
 ---
 
-##少数服从多数
+### 少数服从多数
 
 Note:
 
@@ -147,7 +137,7 @@ Note:
 
 
 
-  #以Bitcoin转账交易为例
+#以Bitcoin转账交易为例
 
   ![98](http://oocfz31zv.bkt.clouddn.com/98.jpg)
 
