@@ -1,6 +1,32 @@
 # Block chain
 
+------
 
+区块链技术是一个对多种技术的组合创新，多种技术包括：
+
+1、 共识算法:POW/POS/DPOS/PBFT/BFT-Raft/Paxos/Kafka |
+
+2、 P2P通讯:自举(bootstrapped)/连接/广播 |
+
+3、 签名验签:ECDSA/secp256k1/ED25519/MultiSig |
+
+4、 Hash锁定:Merkle树/MPT树 |
+
+5、 UTXO记账:流水账 |
+
+6、 智能合约:P2PKH/P2SH/Oracle/状态机 |
+
+7、 隐私保护:零知识证明、同态加密、CoinJoin加密技术 |
+
+8、 私钥存储:HD协议(Hierarchical Deterministic Key Creation)、钱包Wallets、丢失找回 |
+
+9、 算力分发：矿池分发  |
+
+------
+
+# 拜占庭将军问题
+
+工作量证明其实相当于提高了做叛徒（发布虚假区块）的成本，在工作量证明下，只有第一个完成证明的节点才能广播区块，竞争难度非常大，需要很高的算力，如果不成功其算力就白白的耗费了（算力是需要成本的），如果有这样的算力作为诚实的节点，同样也可以获得很大的收益（这就是矿工所作的工作），这也实际就不会有做叛徒的动机，整个系统也因此而更稳定
 
 - https://anders.com/blockchain/hash.html 
 
@@ -11,7 +37,6 @@ Note:![100](http://oocfz31zv.bkt.clouddn.com/100.jpg)
   ![101](http://oocfz31zv.bkt.clouddn.com/101.jpg)
 
   每一个区块都包含一笔以上的交易。
-
 
 ---
 
@@ -43,8 +68,8 @@ nonce:Nonce是或Number once的缩写，在密码学中Nonce是一个只被使�
 为了确保 nonce 在特定上下文中仅仅被使用一次，可以使用以下策略生成 nonce：
 - nonce 可以是一个时间相关变量
 - nonce 可以是一个通过足够随机算法生成的足够长的 bits
-当data改变后hash值也跟着改变，但是在只有hash值开头是4个0才是合法的，挖矿的过程实际上就是猜nonce的值，当猜中了Hash的值就会变成0000开头，然后开始广播给所有的节点，节点开始验证合法性，通过后将这个区块添加到区块链的主链之中。
-![104](http://oocfz31zv.bkt.clouddn.com/104.jpg)
+  当data改变后hash值也跟着改变，但是在只有hash值开头是4个0才是合法的，挖矿的过程实际上就是猜nonce的值，当猜中了Hash的值就会变成0000开头，然后开始广播给所有的节点，节点开始验证合法性，通过后将这个区块添加到区块链的主链之中。
+  ![104](http://oocfz31zv.bkt.clouddn.com/104.jpg)
 
 当修改了某条数据之后，之后的每一条数据都行要重新挖矿，如果链很长的话，修改成本非常的高，任何一笔资料被篡改的几率微乎其微。
 
@@ -133,7 +158,7 @@ Note:
 
   - 这份共同维护的账簿必需由大伙共同认证 |
 
-  ---
+---
 
 
 
@@ -141,7 +166,7 @@ Note:
 
   ![98](http://oocfz31zv.bkt.clouddn.com/98.jpg)
 
-  ---
+---
 
 
 
