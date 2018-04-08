@@ -1,8 +1,9 @@
 # Block chain
 
-------
+---
 
 区块链技术是一个对多种技术的组合创新，多种技术包括：
++++
 
 1、 共识算法:POW/POS/DPOS/PBFT/BFT-Raft/Paxos/Kafka |
 
@@ -11,6 +12,7 @@
 3、 签名验签:ECDSA/secp256k1/ED25519/MultiSig |
 
 4、 Hash锁定:Merkle树/MPT树 |
++++
 
 5、 UTXO记账:流水账 |
 
@@ -22,7 +24,7 @@
 
 9、 算力分发：矿池分发  |
 
-------
+---
 
 # 拜占庭将军问题
 
