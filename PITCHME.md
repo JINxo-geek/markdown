@@ -36,7 +36,11 @@
 
   哈希算法会将一串字符串按照固定的算法生成一串固定长度的16进制字符串
 
-Note:![100](http://oocfz31zv.bkt.clouddn.com/100.jpg)
+Note:
+
+256位bit也就是32位16进制
+
+![100](http://oocfz31zv.bkt.clouddn.com/100.jpg)
 
   ![101](http://oocfz31zv.bkt.clouddn.com/101.jpg)
 
