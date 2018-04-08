@@ -6,7 +6,7 @@
 
   哈希算法会将一串字符串按照固定的算法生成一串固定长度的16进制字符串
 
-  ![100](http://oocfz31zv.bkt.clouddn.com/100.jpg)
+  Note:![100](http://oocfz31zv.bkt.clouddn.com/100.jpg)
 
   ![101](http://oocfz31zv.bkt.clouddn.com/101.jpg)
 
@@ -34,6 +34,8 @@ Note:![103](http://oocfz31zv.bkt.clouddn.com/103.jpg)
 - `Data:` 存储在当前区块上的交易信息
 - `Nonce:` 在找到有效区块之前，我们经历的迭代次数（表示工作量证明演算法进行的次数
 - ）
+
+---
 
 
 
@@ -68,9 +70,7 @@ nonce:Nonce是或Number once的缩写，在密码学中Nonce是一个只被使�
 
 ---
 
-# 什么是区块链
-
-
+## 什么是区块链
 
 - 是一种分布式数据库 |
 - 最初是广泛使用在Bitcoin |
@@ -82,7 +82,7 @@ nonce:Nonce是或Number once的缩写，在密码学中Nonce是一个只被使�
 - 所有被连接在一起的区块被称为链（Chain） |
 - 区块链就是由多个区块组成的链 |
 
-
+---
 #区块链如何工作？
 
 +++
