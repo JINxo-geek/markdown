@@ -44,6 +44,161 @@ Note:![100](http://oocfz31zv.bkt.clouddn.com/100.jpg)
 
 ---
 
+```js
+/*区块结构
+
+第一个步骤是确定区块的结构。为了让事情尽可能简单，区块结构只包含最必要的部分：索引，时间戳，数据，散列值(hash)和前一个区块的散列值(hash)。*/
+class Block {
+    constructor(index, previousHash, timestamp, data, hash) {
+        this.index = index;
+        this.previousHash = previousHash.toString();
+        this.timestamp = timestamp;
+        this.data = data;
+        this.hash = hash.toString();
+    }
+}
+```
+
+---
+
+![img](https://ask.qcloudimg.com/draft/1046487/ofuu05m13o.png?imageView2//0/w/1620)
+
+---
+
+```js
+//生成区块散列值区块需要散列值以保持数据的完整性。可以使用SHA-256算法生成这个值。
+var calculateHash = (index, previousHash, timestamp, data) => {
+    return CryptoJS.SHA256(index + previousHash + timestamp + data).toString();
+};
+/*生成一个区块
+
+要生成一个区块，我们必须知道前一个块的散列值，并创建剩余所需内容（索引，散列，数据和时间戳）。其中区块数据是由用户提供的。*/
+var generateNextBlock = (blockData) => {
+    var previousBlock = getLatestBlock();
+    var nextIndex = previousBlock.index + 1;
+    var nextTimestamp = new Date().getTime() / 1000;
+    var nextHash = calculateHash(nextIndex, previousBlock.hash, nextTimestamp, blockData);
+    return new Block(nextIndex, previousBlock.hash, nextTimestamp, blockData, nextHash);
+};
+```
+
+
+
+
+
+Mr.Crypto
+
+
+发表于
+
+[区块链](https://cloud.tencent.com/developer/column/1560)订阅
+
+**747
+
+# 200行代码构建一个区块链
+
+# 200行代码构建一个区块链
+
+[区块链](https://en.wikipedia.org/wiki/Blockchain_%25252525252528database%25252525252529)的基本概念非常简单：一个存储不断增加的有序记录的分布式数据库。然而，当我们谈论区块链时，我们很容易将其与区块链要解决的问题混淆，比如误解为流行的，基于[区块](https://en.wikipedia.org/wiki/Ethereum)链的，像[比特币](https://en.wikipedia.org/wiki/Bitcoin)和[以太坊](https://en.wikipedia.org/wiki/Ethereum)一样的项目。术语“区块链”通常与[交易](https://en.bitcoin.it/wiki/Transaction)，[智能合约](https://en.wikipedia.org/wiki/Smart_contract)或[加密货币](https://en.wikipedia.org/wiki/Cryptocurrency)等概念紧密相关。
+
+这必然使得理解区块链变成一项更艰巨的任务，特别是清楚地理解源代码。接下来我将介绍一个我用200行Javascript代码完成的超级简单的区块链：[NaiveChain](https://github.com/lhartikk/naivechain)。
+
+#### 区块结构
+
+第一个步骤是确定区块的结构。为了让事情尽可能简单，区块结构只包含最必要的部分：索引，时间戳，数据，散列值(hash)和前一个区块的散列值(hash)。
+
+![img](https://ask.qcloudimg.com/draft/1046487/ofuu05m13o.png?imageView2//0/w/1620)前一个区块的散列值(hash)必须能够在块中找到，这样才能保持链的完整性。
+
+```js
+class Block {
+    constructor(index, previousHash, timestamp, data, hash) {
+        this.index = index;
+        this.previousHash = previousHash.toString();
+        this.timestamp = timestamp;
+        this.data = data;
+        this.hash = hash.toString();
+    }
+}
+```
+
+#### 生成区块散列值
+
+区块需要散列值以保持数据的完整性。可以使用SHA-256算法生成这个值。应该指出，这个散列值与“ [挖掘](https://en.bitcoin.it/wiki/Mining) ” 无关，因为不需要去解决[工作证明](https://en.wikipedia.org/wiki/Proof-of-work_system)问题。
+
+```js
+var calculateHash = (index, previousHash, timestamp, data) => {
+    return CryptoJS.SHA256(index + previousHash + timestamp + data).toString();
+};
+```
+
+
+
+---
+
+
+
+#### 生成一个区块
+
+要生成一个区块，我们必须知道前一个块的散列值，并创建剩余所需内容（索引，散列，数据和时间戳）。其中区块数据是由用户提供的。
+
+```js
+var generateNextBlock = (blockData) => {
+    var previousBlock = getLatestBlock();
+    var nextIndex = previousBlock.index + 1;
+    var nextTimestamp = new Date().getTime() / 1000;
+    var nextHash = calculateHash(nextIndex, previousBlock.hash, nextTimestamp, blockData);
+    return new Block(nextIndex, previousBlock.hash, nextTimestamp, blockData, nextHash);
+};
+```
+
+
+
+---
+
+
+
+#### 存储区块
+
+使用Javascript数组在内存中存储区块链。区块链的第一个区块总是一个所谓的“创世纪区块”，内容是固定的。
+
+```js
+var getGenesisBlock = () => {
+    return new Block(0, "0", 1465154705, "my genesis block!!", "816534932c2b7154836da6afc367695e6337db8a921823784c14378abed4f7d7");
+};
+
+var blockchain = [getGenesisBlock()];
+```
+
+---
+
+
+
+#### 验证区块的完整性
+
+我们必须能时刻验证区块或者区块链是否完整，尤其是当我们从其他节点接收到新块，需要决定是否接受它们的时候。
+
+```js
+var isValidNewBlock = (newBlock, previousBlock) => {
+    if (previousBlock.index + 1 !== newBlock.index) {
+        console.log('invalid index');
+        return false;
+    } else if (previousBlock.hash !== newBlock.previousHash) {
+        console.log('invalid previoushash');
+        return false;
+    } else if (calculateHashForBlock(newBlock) !== newBlock.hash) {
+        console.log('invalid hash: ' + calculateHashForBlock(newBlock) + ' ' + newBlock.hash);
+        return false;
+    }
+    return true;
+};
+```
+
+
+
+---
+
+
+
 
 
 ![O6C6[NL{P1SHV$XX}]V$AFL](http://oocfz31zv.bkt.clouddn.com/O6C6%5BNL%7BP1SHV%24XX%7D%5DV%24AFL.png)
@@ -216,8 +371,7 @@ Note:
 
 ![113](http://oocfz31zv.bkt.clouddn.com/113.jpg)
 
----
-
+Note:
 最初的奖励为每个区块50BTC，每2.1万个区块后减半，所以通胀速度会几何级数下降，无限逼近2100万的总量上限。容易看出，这是一个公比为0.5的等比数列，而这个数列的和为210000×50（1+0.5+0.25+0.125+……）=2100万，即BTC总量2100万的来源。在比特币系统里面，打包一个区块的时间大约是十分钟。也就是说理论上，每210万分钟，新币的发行速度就会发生一次减半，换算成年就是大约3.995年。
 
 这就是江湖上流传的“四年减半”这个说法的由来。由于比特币的算力一直在快速增加，导致系统平均出块时间略小于10分钟，因此实际上的减半时间比理论值3.995还要更短一些。
@@ -239,3 +393,67 @@ sha256(timt.time()*m ) < difficult
 求解m的人会越来越多，本来平均10分钟会有人求解成功，变成平均5分钟就有人算出来了，而每次求解成功，系统都会发放奖励，这样就会违背比特币系统生产速率恒定的初衷，于是系统会自动减小difficult，也就是所谓的提升难度。提升周期大概为2周一次。
 
 难度并不总是上升的，如果算力下降，难度也会下降，这样就维持比特币产出在长时间周期内大概是平稳的。
+
+后辍是DAT的文件，均为数据库文件。其中最重要的是钱包密匙文件Wallet.dat，要保管好，不要误删除，不被别人复制。可以改名另存，当然，改了名，程序文件就认不得它了，又会生成一个新的Wallet.dat，里边的地址是不相同的，要分清此Wallet=1#.dat和彼Wallet=2#.dat，要用回原来地址，就将相应的文件改回原名来用。
+
+总结一下，一个虚拟币用户端，实际就是两大文件夹内容。一个夹是下载安装得到的程序文件，另一个夹是按设置运行已安装好的程序所得到的并随使用过程增长的数据文件。
+
+更深层次的诠释什么是“钱包”，“钱包”这个概念，因人而异有较多的不同定义。我们在这里说的是分布式加密传输用门户终端记录数据库。钱包就是一个互联网上分布在各处用户的数据库。基本构成是程序文件夹内容和数据夹内容。其中，有个人权益资料和公共记录资料。Wallet.dat文件是重要的个人权益资料，它用在公共资料数据库平台上获得权益归属和处置权利。
+
+---
+
+## 什么是merkle tree
+
+假设你已经知道了什么是哈希算法以及哈希是用来干啥的。
+
+网络传输数据的时候，A收到B的传过来的文件，需要确认收到的文件有没有损坏。如何解决？
+
+有一种方法是B在传文件之前先把文件的hash结果给A，A收到文件再计算一次哈希然后和收到的哈希比较就知道文件有无损坏。
+
+但是当文件很大的时候，往往需要把文件拆分很多的数据块各自传输，这个时候就需要知道每个数据块的哈希值。怎么办呢？
+
+----
+
+这种情况，可以在下载数据之前先下载一份哈希列表(hash list)，这个列表每一项对应一个数据块的哈希值。对这个hash list拼接后可以计算一个根hash。实际应用中，我们只要确保从一个可信的渠道获取正确的根hash，就可以确保下载正确的文件。
+
+**似乎很完美了。但是还不够好！**
+
+上面基于hash list的方案这样一个问题：
+
+---
+
+
+
+**有些时候我们获取(遍历)所有数据块的hash list代价比较大，只能获取部分节点的哈希。**
+
+有没有一种方法可以通过部分hash就能校验整个文件的完整性呢？
+
+答案是肯定的，merkle tree能做到。它长这样子:
+
+---![这里写图片描述](http://static.open-open.com/lib/uploadImg/20140403/20140403101532_513.jpg)
+
+在上图中，叶子节点node7的value（v7) = hash(f1),是f1文件的HASH;而其父亲节点node3的value = hash(v7, v8)，也就是其子节点node7 node8的值得HASH
+
+---
+
+特点如下:
+
+1、数据结构是一个树，可以是二叉树，也可以是多叉树（本BLOG以二叉树来分析）
+
+2、Merkle Tree的叶子节点的value是数据集合的单元数据或者单元数据HASH。
+
+3、Merke Tree非叶子节点value是其所有子节点value的HASH值。
+
+
+
+---
+
+很明显，这种结构跟hash list相比较，根哈希不是用所有的数据块哈希拼接起来merkle tree应用在区块链上
+
+下面是本文的重点。
+
+比特币系统的区块链中，每个区块都有一个merkle tree
+
+可以看到merkle root哈希值存在每一个区块的头部，通过这个root值连接着区块体，而区块体内就是包含着大量的交易。每个交易就相当于前面提到的数据块，交易本身有都有自己的哈希值来唯一标识自己。计算的，而是通过一个层级的关系计算出来的。
+
+****
