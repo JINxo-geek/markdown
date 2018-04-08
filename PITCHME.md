@@ -5,30 +5,32 @@
 区块链技术是一个对多种技术的组合创新，多种技术包括：
 +++
 
-1、 共识算法:POW/POS/DPOS/PBFT/BFT-Raft/Paxos/Kafka |
+1、 共识算法:POW/POS/DPOS/PBFT/BFT-Raft/Paxos/Kafka
 
-2、 P2P通讯:自举(bootstrapped)/连接/广播 |
+2、 P2P通讯:自举(bootstrapped)/连接/广播
 
-3、 签名验签:ECDSA/secp256k1/ED25519/MultiSig |
+3、 签名验签:ECDSA/secp256k1/ED25519/MultiSig 
 
-4、 Hash锁定:Merkle树/MPT树 |
+4、 Hash锁定:Merkle树/MPT树 
 +++
 
-5、 UTXO记账:流水账 |
+5、 UTXO记账:流水账 
 
-6、 智能合约:P2PKH/P2SH/Oracle/状态机 |
+6、 智能合约:P2PKH/P2SH/Oracle/状态机
 
-7、 隐私保护:零知识证明、同态加密、CoinJoin加密技术 |
+7、 隐私保护:零知识证明、同态加密、CoinJoin加密技术
 
-8、 私钥存储:HD协议(Hierarchical Deterministic Key Creation)、钱包Wallets、丢失找回 |
+8、 私钥存储:HD协议(Hierarchical Deterministic Key Creation)、钱包Wallets、丢失找回
 
-9、 算力分发：矿池分发  |
+9、 算力分发：矿池分发 
 
 ---
 
-# 拜占庭将军问题
-
+## 拜占庭将军问题
+---
 工作量证明其实相当于提高了做叛徒（发布虚假区块）的成本，在工作量证明下，只有第一个完成证明的节点才能广播区块，竞争难度非常大，需要很高的算力，如果不成功其算力就白白的耗费了（算力是需要成本的），如果有这样的算力作为诚实的节点，同样也可以获得很大的收益（这就是矿工所作的工作），这也实际就不会有做叛徒的动机，整个系统也因此而更稳定
+
+---
 
 - https://anders.com/blockchain/hash.html 
 
