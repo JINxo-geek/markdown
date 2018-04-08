@@ -82,44 +82,9 @@ var generateNextBlock = (blockData) => {
 };
 ```
 
+---
 
 
-
-
-Mr.Crypto
-
-
-发表于
-
-[区块链](https://cloud.tencent.com/developer/column/1560)订阅
-
-**747
-
-# 200行代码构建一个区块链
-
-# 200行代码构建一个区块链
-
-[区块链](https://en.wikipedia.org/wiki/Blockchain_%25252525252528database%25252525252529)的基本概念非常简单：一个存储不断增加的有序记录的分布式数据库。然而，当我们谈论区块链时，我们很容易将其与区块链要解决的问题混淆，比如误解为流行的，基于[区块](https://en.wikipedia.org/wiki/Ethereum)链的，像[比特币](https://en.wikipedia.org/wiki/Bitcoin)和[以太坊](https://en.wikipedia.org/wiki/Ethereum)一样的项目。术语“区块链”通常与[交易](https://en.bitcoin.it/wiki/Transaction)，[智能合约](https://en.wikipedia.org/wiki/Smart_contract)或[加密货币](https://en.wikipedia.org/wiki/Cryptocurrency)等概念紧密相关。
-
-这必然使得理解区块链变成一项更艰巨的任务，特别是清楚地理解源代码。接下来我将介绍一个我用200行Javascript代码完成的超级简单的区块链：[NaiveChain](https://github.com/lhartikk/naivechain)。
-
-#### 区块结构
-
-第一个步骤是确定区块的结构。为了让事情尽可能简单，区块结构只包含最必要的部分：索引，时间戳，数据，散列值(hash)和前一个区块的散列值(hash)。
-
-![img](https://ask.qcloudimg.com/draft/1046487/ofuu05m13o.png?imageView2//0/w/1620)前一个区块的散列值(hash)必须能够在块中找到，这样才能保持链的完整性。
-
-```js
-class Block {
-    constructor(index, previousHash, timestamp, data, hash) {
-        this.index = index;
-        this.previousHash = previousHash.toString();
-        this.timestamp = timestamp;
-        this.data = data;
-        this.hash = hash.toString();
-    }
-}
-```
 
 #### 生成区块散列值
 
@@ -197,7 +162,45 @@ var isValidNewBlock = (newBlock, previousBlock) => {
 
 ---
 
+#### 选择最长的区块链
 
+区块链中应时刻有且只有一组显式的区块。如果发生冲突（例如，两个节点都生成块号72的区块），我们选择具有最长块数的链。
+
+```js
+var replaceChain = (newBlocks) => {
+    if (isValidChain(newBlocks) && newBlocks.length > blockchain.length) {
+        console.log('Received blockchain is valid. Replacing current blockchain with received blockchain');
+        blockchain = newBlocks;
+        broadcast(responseLatestMsg());
+    } else {
+        console.log('Received blockchain invalid');
+    }
+};
+```
+
+---
+
+
+
+#### 与其他节点通信
+
+区块链节点的一个重要任务是与其他节点共享和同步区块链。以下规则用于保持网络同步。
+
+- 当一个节点产生一个新块时，要将这个区块广播到网络中。|
+- 当一个节点连接到一个新的对等节点时，要查询最新的区块。|
+- 当一个节点遇到一个索引大于当前已知块的块时，将该块添加到当前链中，或者查询完整区块链。|
+
+---
+
+![img](https://ask.qcloudimg.com/draft/1046487/mgi4tfvbvc.png?imageView2//0/w/1620)
+
+---
+
+#### 架构
+
+应该注意的是，每个节点实际上公开了两个Web服务器：一个用于控制节点（HTTP服务器），一个用于节点之间的对等通信（Websocket HTTP服务器）![img](https://ask.qcloudimg.com/draft/1046487/sb8oswq2ls.png?imageView2//0/w/1620)
+
+---
 
 
 
